@@ -39,3 +39,18 @@ export const CREATE_EVENT = gql`
     }
   }
 `;
+
+import { gql } from '@apollo/client';
+
+export const REGISTER_FOR_EVENT = gql`
+  mutation RegisterForEvent($eventId: ID!, $token: String!) {
+    registerForEvent(eventId: $eventId, token: $token) {
+      id
+      title
+      description
+      date
+      location
+      fee
+    }
+  }
+`;
