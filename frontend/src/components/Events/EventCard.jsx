@@ -1,5 +1,6 @@
-import React from 'react';
+import React from 'react'; // Import the React library
 
+// Define the EventCard component to display event details
 const EventCard = ({ event }) => {
   return (
     <div>
@@ -12,4 +13,4 @@ const EventCard = ({ event }) => {
   );
 };
 
-export default EventCard;
+export default EventCard; // Export the EventCard component

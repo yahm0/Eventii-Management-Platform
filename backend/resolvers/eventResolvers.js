@@ -1,6 +1,7 @@
-const Event = require('../models/Event');
-const User = require('../models/User');
+const Event = require('../models/Event'); // Import the Event model
+const User = require('../models/User'); // Import the User model
 
+// Function to create a charge using the Stripe API
 const eventResolvers = {
   Query: {
     events: async () => await Event.find().populate('organizer').populate('attendees'),
@@ -37,4 +38,4 @@ const eventResolvers = {
     },
   };
   
-module.exports = eventResolvers;
+module.exports = eventResolvers; // Export the resolvers

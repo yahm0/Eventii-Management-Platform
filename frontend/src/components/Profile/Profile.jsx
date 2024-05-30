@@ -1,8 +1,9 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
-import { GET_USER } from '../../graphql/queries';
-import { useAuth } from '../../utils/Auth';
+import React from 'react'; // Import the React library
+import { useQuery } from '@apollo/client'; // Import the useQuery hook from Apollo Client
+import { GET_USER } from '../../graphql/queries'; // Import the GET_USER query
+import { useAuth } from '../../utils/Auth'; // Import the useAuth hook
 
+// Define the Profile component to display user profile information
 const Profile = () => {
   const { userId } = useAuth();
   const { loading, error, data } = useQuery(GET_USER, {
@@ -14,6 +15,7 @@ const Profile = () => {
 
   const { user } = data;
 
+  // Return the user's name, email, and registered events
   return (
     <div>
       <h2>{user.name}</h2>
@@ -28,4 +30,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile; // Export the Profile component

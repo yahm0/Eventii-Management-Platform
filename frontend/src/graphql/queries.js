@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'; // Import the gql tag from Apollo Client
 
+// Define the GET_EVENTS query
 export const GET_EVENTS = gql`
   query GetEvents {
     events {
@@ -15,6 +16,7 @@ export const GET_EVENTS = gql`
   }
 `;
 
+// Define the GET_USER query
 export const GET_USER = gql`
   query GetUser($id: ID!) {
     user(id: $id) {

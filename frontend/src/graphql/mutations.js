@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'; // Import the gql tag from Apollo Client
 
+// Define the SIGNUP_USER mutation
 export const SIGNUP_USER = gql`
   mutation SignupUser($userInput: UserInput!) {
     signup(userInput: $userInput) {
@@ -13,6 +14,7 @@ export const SIGNUP_USER = gql`
   }
 `;
 
+// Define the LOGIN_USER mutation
 export const LOGIN_USER = gql`
   mutation LoginUser($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -27,6 +29,7 @@ export const LOGIN_USER = gql`
 `;
 
 
+// Define the CREATE_EVENT mutation
 export const CREATE_EVENT = gql`
   mutation CreateEvent($eventInput: EventInput!) {
     createEvent(eventInput: $eventInput) {
@@ -42,6 +45,7 @@ export const CREATE_EVENT = gql`
 
 import { gql } from '@apollo/client';
 
+// Define the REGISTER_FOR_EVENT mutation
 export const REGISTER_FOR_EVENT = gql`
   mutation RegisterForEvent($eventId: ID!, $token: String!) {
     registerForEvent(eventId: $eventId, token: $token) {

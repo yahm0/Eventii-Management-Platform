@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_EVENT } from '../../graphql/mutations';
+import React, { useState } from 'react'; // Import the useState hook
+import { useMutation } from '@apollo/client'; // Import the useMutation hook from Apollo Client
+import { CREATE_EVENT } from '../../graphql/mutations'; // Import the CREATE_EVENT mutation
 
+// Define the EventForm component to handle event creation
 const EventForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -10,6 +11,7 @@ const EventForm = () => {
   const [fee, setFee] = useState('');
   const [createEvent] = useMutation(CREATE_EVENT);
 
+  // Define the handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,6 +24,7 @@ const EventForm = () => {
     }
   };
 
+  // Return a form for users to enter event details
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -57,4 +60,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+export default EventForm; // Export the EventForm component

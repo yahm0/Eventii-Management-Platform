@@ -1,6 +1,7 @@
-const User = require('../models/User');
-const { generateToken } = require('../config/auth');
+const User = require('../models/User'); // Import the User model
+const { generateToken } = require('../config/auth'); // Import the generateToken function
 
+// Define the user resolvers
 const userResolvers = {
   Query: {
     users: async () => await User.find().populate('events'),
@@ -22,4 +23,4 @@ const userResolvers = {
   },
 };
 
-module.exports = userResolvers;
+module.exports = userResolvers; // Export the resolvers
