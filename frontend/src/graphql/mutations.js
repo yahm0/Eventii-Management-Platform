@@ -25,3 +25,17 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+
+export const CREATE_EVENT = gql`
+  mutation CreateEvent($eventInput: EventInput!) {
+    createEvent(eventInput: $eventInput) {
+      id
+      title
+      description
+      date
+      location
+      fee
+    }
+  }
+`;
