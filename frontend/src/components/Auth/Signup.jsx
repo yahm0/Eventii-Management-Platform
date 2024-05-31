@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { SIGNUP_USER } from '../../graphql/mutations';
+import React, { useState } from 'react'; // Import the useState hook
+import { useMutation } from '@apollo/client'; // Import the useMutation hook from Apollo Client
+import { SIGNUP_USER } from '../../graphql/mutations'; // Import the SIGNUP_USER mutation
 
+// Define the Signup component to handle user signup
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signup, { data }] = useMutation(SIGNUP_USER);
 
+  // Define the handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -18,6 +20,7 @@ const Signup = () => {
     }
   };
 
+  // Return a form for users to enter their name, email, and password
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -43,4 +46,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup; // Export the Signup component

@@ -1,5 +1,6 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server-express'); // Import gql tag from apollo-server-express package
 
+// Define the user schema with User, UserInput, and AuthPayload types
 const userSchema = gql`
   type User {
     id: ID!
@@ -30,4 +31,4 @@ const userSchema = gql`
   }
 `;
 
-module.exports = userSchema;
+module.exports = userSchema; // Export the user schema

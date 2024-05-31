@@ -1,6 +1,7 @@
-import React from 'react';
-import EventForm from '../components/Events/EventForm';
+import React from 'react'; // Import the React library
+import EventForm from '../components/Events/EventForm'; // Import the EventForm component
 
+// Define the Dashboard component to display the dashboard
 const Dashboard = () => {
   return (
     <div>
@@ -10,4 +11,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard; // Export the Dashboard component

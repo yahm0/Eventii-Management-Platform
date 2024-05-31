@@ -1,5 +1,6 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server-express'); // Import gql tag from apollo-server-express package
 
+// Define the event schema with Event, EventInput, Query, and Mutation types
 const eventSchema = gql`
   type Event {
     id: ID!
@@ -32,4 +33,4 @@ const eventSchema = gql`
   }
 `;
 
-module.exports = eventSchema;
+module.exports = eventSchema; // Export the event schema

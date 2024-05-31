@@ -1,3 +1,4 @@
+// This is the service worker with the Cache-first network
 self.addEventListener('install', (event) => {
     event.waitUntil(
       caches.open('v1').then((cache) => {

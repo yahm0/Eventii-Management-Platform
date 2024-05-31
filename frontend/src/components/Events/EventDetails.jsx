@@ -1,10 +1,11 @@
-import React from 'react';
-import CheckoutForm from './CheckoutForm';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import React from 'react'; // Import the React library
+import CheckoutForm from './CheckoutForm'; // Import the CheckoutForm component
+import { loadStripe } from '@stripe/stripe-js'; // Import the loadStripe function from the Stripe library
+import { Elements } from '@stripe/react-stripe-js'; // Import the Elements component from the Stripe library
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY); // Load the Stripe publishable key
 
+// Define the EventDetails component to display event details
 const EventDetails = ({ event }) => {
   return (
     <div>
@@ -20,4 +21,4 @@ const EventDetails = ({ event }) => {
   );
 };
 
-export default EventDetails;
+export default EventDetails; // Export the EventDetails component
