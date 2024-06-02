@@ -19,8 +19,15 @@ const server = new ApolloServer({
   context: ({ req }) => ({ user: req.user }),
 });
 
-server.applyMiddleware({ app }); // Connect ApolloServer to Express
+// Function to start the server and apply middleware
+async function startServer() {
+  await server.start();
+  server.applyMiddleware({ app });
 
-app.listen({ port: process.env.PORT || 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-);
+  app.listen({ port: process.env.PORT || 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  );
+}
+
+// Start the server
+startServer();
