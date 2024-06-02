@@ -1,41 +1,41 @@
-const Event = require('../models/Event'); // Import the Event model
-const User = require('../models/User'); // Import the User model
+const { events, users } = require('../models');
 
-// Function to create a charge using the Stripe API
 const eventResolvers = {
-  Query: {
-    events: async () => await Event.find().populate('organizer').populate('attendees'),
-    event: async (_, { id }) => await Event.findById(id).populate('organizer').populate('attendees'),
-  },
   Mutation: {
-    createEvent: async (_, { eventInput }, { user }) => {
-      const event = new Event({ ...eventInput, organizer: user.id });
-      await event.save();
-      return event.populate('organizer').execPopulate();
+    createEvent: async (_, { eventInput }) => {
+      // Logic to create an event
     },
-    updateEvent: async (_, { id, eventInput }) => 
-      await Event.findByIdAndUpdate(id, eventInput, { new: true }).populate('organizer').populate('attendees'),
-    deleteEvent: async (_, { id }) => await Event.findByIdAndDelete(id),
+    updateEvent: async (_, { id, eventInput }) => {
+      // Logic to update an event
+    },
+    deleteEvent: async (_, { id }) => {
+      // Logic to delete an event
+    },
+    registerForEvent: async (_, { eventId, token }) => {
+      const event = await events.findById(eventId);
+      if (!event) {
+        throw new Error('Event not found');
+      }
 
-    registerForEvent: async (_, { eventId, token }, { user }) => {
-        const event = await Event.findById(eventId);
-        if (!event) throw new Error('Event not found');
-  
-        // Process payment
-        const charge = await createCharge(event.fee, token, `Registration for ${event.title}`);
-        if (!charge) throw new Error('Payment failed');
-  
-        // Add user to event attendees
-        event.attendees.push(user.id);
-        await event.save();
-  
-        // Add event to user's registered events
-        user.events.push(event.id);
-        await user.save();
-  
-        return event;
-      },
+      const user = await users.findOne({ token });
+      if (!user) {
+        throw new Error('User not found or invalid token');
+      }
+
+      event.attendees.push(user);
+      await event.save();
+
+      return event;
     },
-  };
-  
-module.exports = eventResolvers; // Export the resolvers
+  },
+  Query: {
+    events: async () => {
+      // Logic to get all events
+    },
+    event: async (_, { id }) => {
+      // Logic to get a single event by ID
+    },
+  },
+};
+
+module.exports = eventResolvers;
