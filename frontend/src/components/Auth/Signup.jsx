@@ -7,16 +7,17 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signup, { data }] = useMutation(SIGNUP_USER);
+  const [signup, { data, error }] = useMutation(SIGNUP_USER);
 
   // Define the handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signup({ variables: { name, email, password } });
+      console.log({ name, email, password }); // Add this line to log form data
+      await signup({ variables: { userInput: { name, email, password } } }); // Send userInput object
       // Handle successful signup (e.g., redirect, set token)
     } catch (error) {
-      console.error(error);
+      console.error('Error signing up:', error);
     }
   };
 
@@ -42,6 +43,7 @@ const Signup = () => {
         placeholder="Password"
       />
       <button type="submit">Sign Up</button>
+      {error && <p>Error signing up: {error.message}</p>} {/* Display any errors */}
     </form>
   );
 };
