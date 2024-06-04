@@ -4,12 +4,16 @@ const eventResolvers = {
   Mutation: {
     createEvent: async (_, { eventInput }) => {
       // Logic to create an event
+      const newEvent = new events(eventInput);
+      return await newEvent.save();
     },
     updateEvent: async (_, { id, eventInput }) => {
       // Logic to update an event
+      return await events.findByIdAndUpdate(id, eventInput, { new: true });
     },
     deleteEvent: async (_, { id }) => {
       // Logic to delete an event
+      return await events.findByIdAndDelete(id);
     },
     registerForEvent: async (_, { eventId, token }) => {
       const event = await events.findById(eventId);
@@ -30,10 +34,18 @@ const eventResolvers = {
   },
   Query: {
     events: async () => {
-      // Logic to get all events
+      try {
+        return await events.find();
+      } catch (err) {
+        throw new Error('Failed to fetch events');
+      }
     },
     event: async (_, { id }) => {
-      // Logic to get a single event by ID
+      try {
+        return await events.findById(id);
+      } catch (err) {
+        throw new Error('Failed to fetch event');
+      }
     },
   },
 };
