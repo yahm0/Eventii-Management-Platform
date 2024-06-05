@@ -1,4 +1,14 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Import the User model
+
+// Function to generate JWT token
+const generateToken = (user) => {
+  const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+  console.log('Generated Token:', token); // Log the generated token
+  return token;
+};
 
 const userResolvers = {
   Mutation: {
@@ -6,7 +16,8 @@ const userResolvers = {
       const { name, email, password } = userInput;
       const user = new User({ name, email, password });
       await user.save();
-      const token = 'dummy-token'; // Replace with real token generation logic
+      const token = generateToken(user); // Generate real token
+      console.log('User Signed Up:', user); // Log user details
       return { user, token };
     },
     login: async (_, { email, password }) => {
@@ -18,7 +29,7 @@ const userResolvers = {
       if (!valid) {
         throw new Error('Invalid password');
       }
-      const token = 'dummy-token'; // Replace with real token generation logic
+      const token = generateToken(user); // Generate real token
       return { user, token };
     },
   },
