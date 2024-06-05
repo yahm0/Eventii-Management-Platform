@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGNUP_USER } from '../../graphql/mutations';
+import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signup, { data, error }] = useMutation(SIGNUP_USER);
+  const history = useHistory(); // Use useHistory hook for navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +21,8 @@ const Signup = () => {
       
       localStorage.setItem('token', token); // Store the token
       
-      // Redirect or handle post-signup actions
+      // Redirect to login page
+      history.push('/login');
     } catch (error) {
       console.error('Error signing up:', error);
     }
