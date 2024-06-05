@@ -1,18 +1,19 @@
 {
-    "name": "event-management-platform",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-      "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
-      "start-backend": "npm run start --prefix backend",
-      "start-frontend": "npm run start --prefix frontend",
-      "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
-      "dev-backend": "npm run dev --prefix backend",
-      "dev-frontend": "npm start --prefix frontend",
-      "install-all": "npm install --prefix backend && npm install --prefix frontend"
-    },
-    "dependencies": {
-      "concurrently": "^6.2.0"
-    }
+  "name": "event-management-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "npm run start --prefix backend",
+    "start-frontend": "cross-env NODE_OPTIONS=--openssl-legacy-provider npm run start --prefix frontend",
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "dev-backend": "npm run dev --prefix backend",
+    "dev-frontend": "cross-env NODE_OPTIONS=--openssl-legacy-provider npm start --prefix frontend",
+    "install-all": "npm install --prefix backend && npm install --prefix frontend",
+    "seed": "node backend/seeds/seed.js"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3"
   }
-  
+}
