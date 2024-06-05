@@ -1,12 +1,14 @@
 import React, { useState } from 'react'; // Import the useState hook
 import { useMutation } from '@apollo/client'; // Import the useMutation hook from Apollo Client
 import { LOGIN_USER } from '../../graphql/mutations'; // Import the LOGIN_USER mutation
+import { useHistory } from 'react-router-dom';
 
 // Define the Login component to handle user login
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { data, error }] = useMutation(LOGIN_USER);
+  const history = useHistory(); // Use useHistory hook for navigation
 
   // Define the handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
@@ -16,6 +18,8 @@ const Login = () => {
       await login({ variables: { email, password } });
       console.log('Login successful', data); // Add this line to log successful login
       // Handle successful login (e.g., redirect, set token)
+
+      history.push('./');
     } catch (error) {
       console.error('Error logging in:', error);
     }

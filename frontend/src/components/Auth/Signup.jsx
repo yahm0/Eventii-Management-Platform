@@ -1,27 +1,33 @@
-import React, { useState } from 'react'; // Import the useState hook
-import { useMutation } from '@apollo/client'; // Import the useMutation hook from Apollo Client
-import { SIGNUP_USER } from '../../graphql/mutations'; // Import the SIGNUP_USER mutation
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { SIGNUP_USER } from '../../graphql/mutations';
+import { useHistory } from 'react-router-dom';
 
-// Define the Signup component to handle user signup
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signup, { data, error }] = useMutation(SIGNUP_USER);
+  const history = useHistory(); // Use useHistory hook for navigation
 
-  // Define the handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log({ name, email, password }); // Add this line to log form data
-      await signup({ variables: { userInput: { name, email, password } } }); // Send userInput object
-      // Handle successful signup (e.g., redirect, set token)
+      console.log({ name, email, password });
+      const result = await signup({ variables: { userInput: { name, email, password } } });
+      
+      const token = result.data.signup.token; // Ensure this matches your GraphQL response
+      console.log('Token received:', token); // Log the received token
+      
+      localStorage.setItem('token', token); // Store the token
+      
+      // Redirect to login page
+      history.push('/login');
     } catch (error) {
       console.error('Error signing up:', error);
     }
   };
 
-  // Return a form for users to enter their name, email, and password
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -43,9 +49,9 @@ const Signup = () => {
         placeholder="Password"
       />
       <button type="submit">Sign Up</button>
-      {error && <p>Error signing up: {error.message}</p>} {/* Display any errors */}
+      {error && <p>Error signing up: {error.message}</p>}
     </form>
   );
 };
 
-export default Signup; // Export the Signup component
+export default Signup;
