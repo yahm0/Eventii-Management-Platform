@@ -19,7 +19,7 @@ const Login = () => {
       console.log('Login successful', data); // Add this line to log successful login
       // Handle successful login (e.g., redirect, set token)
 
-      history.push('./');
+      history.push('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
     }

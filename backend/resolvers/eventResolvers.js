@@ -1,22 +1,34 @@
 const { events, users } = require('../models');
 
+
 const eventResolvers = {
   Mutation: {
     createEvent: async (_, { eventInput }) => {
-      // Logic to create an event
       const newEvent = new events(eventInput);
-      return await newEvent.save();
+      const savedEvent = await newEvent.save();
+      return {
+        ...savedEvent.toObject(),
+        id: savedEvent._id
+      };
     },
     updateEvent: async (_, { id, eventInput }) => {
-      // Logic to update an event
-      return await events.findByIdAndUpdate(id, eventInput, { new: true });
+      const updatedEvent = await events.findByIdAndUpdate(id, eventInput, { new: true }).populate('organizer');
+      return {
+        ...updatedEvent.toObject(),
+        id: updatedEvent._id,
+        organizer: updatedEvent.organizer || { name: 'Unknown' }
+      };
     },
     deleteEvent: async (_, { id }) => {
-      // Logic to delete an event
-      return await events.findByIdAndDelete(id);
+      const deletedEvent = await events.findByIdAndDelete(id).populate('organizer');
+      return {
+        ...deletedEvent.toObject(),
+        id: deletedEvent._id,
+        organizer: deletedEvent.organizer || { name: 'Unknown' }
+      };
     },
     registerForEvent: async (_, { eventId, token }) => {
-      const event = await events.findById(eventId);
+      const event = await events.findById(eventId).populate('organizer');
       if (!event) {
         throw new Error('Event not found');
       }
@@ -29,20 +41,37 @@ const eventResolvers = {
       event.attendees.push(user);
       await event.save();
 
-      return event;
+      return {
+        ...event.toObject(),
+        id: event._id,
+        organizer: event.organizer || { name: 'Unknown' }
+      };
     },
   },
   Query: {
     events: async () => {
       try {
-        return await events.find();
+        const eventsList = await events.find().populate('organizer');
+        return eventsList.map(event => ({
+          ...event.toObject(),
+          id: event._id,
+          organizer: event.organizer || { name: 'Unknown' }
+        }));
       } catch (err) {
         throw new Error('Failed to fetch events');
       }
     },
     event: async (_, { id }) => {
       try {
-        return await events.findById(id);
+        const event = await events.findById(id).populate('organizer');
+        if (!event) {
+          throw new Error('Event not found');
+        }
+        return {
+          ...event.toObject(),
+          id: event._id,
+          organizer: event.organizer || { name: 'Unknown' }
+        };
       } catch (err) {
         throw new Error('Failed to fetch event');
       }

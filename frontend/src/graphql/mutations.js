@@ -38,6 +38,9 @@ export const CREATE_EVENT = gql`
       date
       location
       fee
+      organizer {
+        name
+      }
     }
   }
 `;

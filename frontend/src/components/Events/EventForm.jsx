@@ -1,63 +1,80 @@
-import React, { useState } from 'react'; // Import the useState hook
-import { useMutation } from '@apollo/client'; // Import the useMutation hook from Apollo Client
-import { CREATE_EVENT } from '../../graphql/mutations'; // Import the CREATE_EVENT mutation
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { CREATE_EVENT } from '../../graphql/mutations';
 
-// Define the EventForm component to handle event creation
 const EventForm = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [fee, setFee] = useState('');
-  const [createEvent] = useMutation(CREATE_EVENT);
+  const [formState, setFormState] = useState({
+    title: '',
+    description: '',
+    date: '',
+    location: '',
+    fee: 0
+  });
 
-  // Define the handleSubmit function to handle form submission
+  const [createEvent, { data, loading, error }] = useMutation(CREATE_EVENT);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form State:', formState); // Debugging log
     try {
-      await createEvent({
-        variables: { eventInput: { title, description, date, location, fee: parseFloat(fee) } },
-      });
-      // Handle successful event creation (e.g., redirect, show message)
-    } catch (error) {
-      console.error(error);
+      const response = await createEvent({ variables: { eventInput: formState } });
+      console.log('Event created successfully:', response.data.createEvent); // Debugging log
+    } catch (err) {
+      console.error('Error creating event:', err); // Debugging log
     }
   };
 
-  // Return a form for users to enter event details
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        name="title"
         placeholder="Title"
-      />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-      />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
+        value={formState.title}
+        onChange={handleChange}
       />
       <input
         type="text"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
+        name="description"
+        placeholder="Description"
+        value={formState.description}
+        onChange={handleChange}
+      />
+      <input
+        type="date"
+        name="date"
+        placeholder="Date"
+        value={formState.date}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="location"
         placeholder="Location"
+        value={formState.location}
+        onChange={handleChange}
       />
       <input
         type="number"
-        value={fee}
-        onChange={(e) => setFee(e.target.value)}
+        name="fee"
         placeholder="Fee"
+        value={formState.fee}
+        onChange={handleChange}
       />
       <button type="submit">Create Event</button>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>}
+      {data && <p>Event created successfully!</p>}
     </form>
   );
 };
 
-export default EventForm; // Export the EventForm component
+export default EventForm;
