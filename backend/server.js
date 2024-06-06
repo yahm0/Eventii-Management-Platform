@@ -3,13 +3,19 @@ const { ApolloServer } = require('apollo-server-express');
 const connectDB = require('./config/db');
 const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
-const { verifyToken } = require('./config/auth'); // Ensure correct import path
+const { verifyToken, generateToken, generateRefreshToken } = require('./config/auth'); // Ensure correct import path
 const authMiddleware = require('./utils/auth'); // Ensure correct import path
 
 require('dotenv').config();
 
 const app = express();
 connectDB();
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
+// Define authRoutes in a separate file and import it
+const authRoutes = require('./routes/authRoutes'); // Make sure to create this file as mentioned earlier
 
 // Apply middleware only to routes that need it
 // app.use(authMiddleware); // Apply this to specific routes if needed
@@ -36,6 +42,9 @@ const server = new ApolloServer({
 async function startServer() {
   await server.start();
   server.applyMiddleware({ app });
+
+  // Use the auth routes
+  app.use('/auth', authRoutes);
 
   app.listen({ port: process.env.PORT || 4000 }, () =>
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
