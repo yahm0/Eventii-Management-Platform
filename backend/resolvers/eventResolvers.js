@@ -1,5 +1,6 @@
 const { events, users } = require('../models');
 
+
 const eventResolvers = {
   Mutation: {
     createEvent: async (_, { eventInput }) => {
