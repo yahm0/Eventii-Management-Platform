@@ -6,7 +6,7 @@ function Footer() {
     <footer className="footer">
       <p>&copy; 2024 </p>
       <div>
-        <a href="https://github.com/yahm0/Eventii-Management-Platform"></a>
+        <a href="https://github.com/yahm0/Eventii-Management-Platform">GitHub Repository</a>
       </div>
     </footer>
   );

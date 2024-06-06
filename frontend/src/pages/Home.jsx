@@ -1,5 +1,6 @@
-import React from 'react';
-import EventList from '../components/Events/EventList';
+import React from 'react'; // Import the React library
+import EventList from '../components/Events/EventList'; // Import the EventList component
+import '../styles/main.css';
 
 const Home = () => {
   return (
