@@ -1,4 +1,4 @@
-import React from 'react'; // Import the React library
+import React from 'react';
 
 // Define the EventCard component to display event details
 const EventCard = ({ event }) => {
@@ -8,7 +8,7 @@ const EventCard = ({ event }) => {
       <p>{event.description}</p>
       <p>{new Date(event.date).toLocaleDateString()}</p>
       <p>{event.location}</p>
-      <p>Organizer: {event.organizer.name}</p>
+      <p>Organizer: {event.organizer?.name || 'Unknown'}</p>
     </div>
   );
 };

@@ -1,7 +1,6 @@
-import React from 'react'; // Import the React library
-import EventList from '../components/Events/EventList'; // Import the EventList component
+import React from 'react';
+import EventList from '../components/Events/EventList';
 
-// Define the Home component to display the home page
 const Home = () => {
   return (
     <div>
@@ -11,4 +10,4 @@ const Home = () => {
   );
 };
 
-export default Home; // Export the Home component
+export default Home;
