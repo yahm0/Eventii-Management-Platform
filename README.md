@@ -1,3 +1,4 @@
+
 # Eventii-Management-Platform
 
 A full-stack event management application using the MERN stack.
@@ -63,6 +64,10 @@ A full-stack event management application using the MERN stack.
 
 The application is deployed using Render for both frontend and backend.
 
+[Deployed Link](#) 
+
+[Repository Link](https://github.com/yahm0/Eventii-Management-Platform) 
+
 ## Usage
 
 - Visit the application URL.
@@ -78,3 +83,7 @@ Feel free to fork this repository and submit pull requests.
 ## License
 
 This project is licensed under the MIT License.
+
+## Image
+
+![Application Screenshot](./IMG/image.png)
