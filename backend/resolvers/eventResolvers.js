@@ -4,12 +4,28 @@ const { events, users } = require('../models');
 const eventResolvers = {
   Mutation: {
     createEvent: async (_, { eventInput }) => {
-      const newEvent = new events(eventInput);
-      const savedEvent = await newEvent.save();
-      return {
-        ...savedEvent.toObject(),
-        id: savedEvent._id
-      };
+      try {
+        console.log('Received eventInput:', eventInput); // Log received input
+
+        // Ensure required fields are provided
+        if (!eventInput.title || !eventInput.description || !eventInput.date || !eventInput.location) {
+          throw new Error('Missing required fields');
+        }
+
+        const newEvent = new events(eventInput);
+        const savedEvent = await newEvent.save();
+
+        console.log('Saved event:', savedEvent); // Log saved event
+
+        return {
+          ...savedEvent.toObject(),
+          id: savedEvent._id,
+          organizer: { name: 'Organizer Name' } // Placeholder for organizer, replace with actual data
+        };
+      } catch (error) {
+        console.error('Error in createEvent resolver:', error); // Log error
+        throw new Error('Failed to create event');
+      }
     },
     updateEvent: async (_, { id, eventInput }) => {
       const updatedEvent = await events.findByIdAndUpdate(id, eventInput, { new: true }).populate('organizer');

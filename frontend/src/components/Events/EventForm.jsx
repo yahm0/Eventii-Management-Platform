@@ -17,18 +17,33 @@ const EventForm = () => {
     const { name, value } = e.target;
     setFormState({
       ...formState,
-      [name]: value
+      [name]: name === 'fee' ? parseFloat(value) : value // Ensure fee is a number
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form State:', formState); // Debugging log
+    console.log('Form State before submit:', formState); // Debugging log
+
+    // Ensure the date is correctly formatted as a string
+    const formattedDate = new Date(formState.date).toISOString();
+    const variables = {
+      eventInput: {
+        ...formState,
+        date: formattedDate
+      }
+    };
+
+    console.log('Variables sent to mutation:', variables); // Debugging log
+
     try {
-      const response = await createEvent({ variables: { eventInput: formState } });
+      const response = await createEvent({ variables });
       console.log('Event created successfully:', response.data.createEvent); // Debugging log
     } catch (err) {
-      console.error('Error creating event:', err); // Debugging log
+      console.error('Error creating event:', err.message); // Debugging log
+      if (err.networkError) {
+        console.error('Network error details:', err.networkError.result.errors); // Detailed error log
+      }
     }
   };
 
