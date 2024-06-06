@@ -8,7 +8,9 @@ import Dashboard from './pages/Dashboard';
 import Profile from './components/Profile/Profile';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
-import Navigation from './components/Navigation'; // Import the Navigation component
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Navigation from './components/Navigation';
 
 const App = () => {
   console.log('Rendering App');
@@ -17,7 +19,8 @@ const App = () => {
       <AuthProvider>
         <Router>
           <div>
-            <Navigation /> {/* Include the navigation component */}
+            <Header />
+            <Navigation />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/dashboard" component={Dashboard} />
@@ -25,6 +28,7 @@ const App = () => {
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
             </Switch>
+            <Footer />
           </div>
         </Router>
       </AuthProvider>

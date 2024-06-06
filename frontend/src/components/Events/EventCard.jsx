@@ -1,14 +1,15 @@
 import React from 'react';
+import '../../styles/home.css'; // Adjust the path as necessary
 
 // Define the EventCard component to display event details
 const EventCard = ({ event }) => {
   return (
-    <div>
+    <div className="event-card">
       <h3>{event.title}</h3>
       <p>{event.description}</p>
-      <p>{new Date(event.date).toLocaleDateString()}</p>
-      <p>{event.location}</p>
-      <p>Organizer: {event.organizer?.name || 'Unknown'}</p>
+      <p className="event-date">{new Date(event.date).toLocaleDateString()}</p>
+      <p className="event-location">{event.location}</p>
+      <p className="event-organizer">Organizer: {event.organizer?.name || 'Unknown'}</p>
     </div>
   );
 };
