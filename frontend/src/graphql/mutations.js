@@ -28,7 +28,6 @@ export const LOGIN_USER = gql`
   }
 `;
 
-
 // Define the CREATE_EVENT mutation
 export const CREATE_EVENT = gql`
   mutation CreateEvent($eventInput: EventInput!) {
@@ -42,8 +41,6 @@ export const CREATE_EVENT = gql`
     }
   }
 `;
-
-import { gql } from '@apollo/client';
 
 // Define the REGISTER_FOR_EVENT mutation
 export const REGISTER_FOR_EVENT = gql`

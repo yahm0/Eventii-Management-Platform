@@ -2,6 +2,15 @@
 
 A full-stack event management application using the MERN stack.
 
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup](#setup)
+- [Deployment](#deployment)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Features
 
 - User authentication (sign up, login, logout) with JWT.

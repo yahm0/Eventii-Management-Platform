@@ -1,10 +1,20 @@
-const jwt = require('jsonwebtoken'); // Import jsonwebtoken package
+const jwt = require('jsonwebtoken');
 
-// Function to generate token
-const generateToken = (user) => {
-  return jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-    expiresIn: '1h',
-  });
+const verifyToken = (token) => {
+  if (!token) {
+    throw new Error('No token provided');
+  }
+  const splitToken = token.split(' ')[1]; // Expecting 'Bearer <token>'
+  if (!splitToken) {
+    throw new Error('Token format is invalid');
+  }
+
+  try {
+    const decoded = jwt.verify(splitToken, process.env.JWT_SECRET);
+    return decoded;
+  } catch (err) {
+    throw new Error('Token verification failed: ' + err.message);
+  }
 };
 
-module.exports = { generateToken }; // Export the function
+module.exports = { verifyToken };

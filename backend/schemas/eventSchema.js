@@ -30,6 +30,7 @@ const eventSchema = gql`
     createEvent(eventInput: EventInput!): Event!
     updateEvent(id: ID!, eventInput: EventInput!): Event!
     deleteEvent(id: ID!): Event!
+    registerForEvent(eventId: ID!, token: String!): Event!
   }
 `;
 

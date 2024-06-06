@@ -1,14 +1,14 @@
 const mongoose = require('mongoose'); // Import mongoose package
+require('dotenv').config();
 
 // Function to connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
     });
-    console.log('MongoDB connected');
+    console.log(`MongoDB connected: ${conn.connection.host}`);
   // If connection fails, log the error and exit the process
   } catch (error) {
     console.error('MongoDB connection failed', error);
