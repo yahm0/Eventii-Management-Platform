@@ -65,7 +65,7 @@ button:active {
 }
 
 nav {
-  background-color: #333;
+  background-color: #9caf88;
   padding: 10px;
 }
 
@@ -87,4 +87,8 @@ nav ul li a {
 
 nav ul li a:hover {
   text-decoration: underline;
+}
+
+h1 {
+  text-align: center;
 }
