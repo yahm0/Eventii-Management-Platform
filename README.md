@@ -12,6 +12,10 @@ A full-stack event management application using the MERN stack.
 - [Contributing](#contributing)
 - [License](#license)
 
+## Image
+
+![Application Screenshot](./IMG/image.png)
+
 ## Features
 
 - User authentication (sign up, login, logout) with JWT.
@@ -64,7 +68,7 @@ A full-stack event management application using the MERN stack.
 
 The application is deployed using Render for both frontend and backend.
 
-[Deployed Link](#) 
+[Deployed Link](https://eventii-management-platform-l6xt.onrender.com/) 
 
 [Repository Link](https://github.com/yahm0/Eventii-Management-Platform) 
 
@@ -83,7 +87,3 @@ Feel free to fork this repository and submit pull requests.
 ## License
 
 This project is licensed under the MIT License.
-
-## Image
-
-![Application Screenshot](./IMG/image.png)
