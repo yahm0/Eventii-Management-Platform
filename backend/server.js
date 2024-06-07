@@ -3,8 +3,8 @@ const { ApolloServer } = require('apollo-server-express');
 const connectDB = require('./config/db');
 const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
-const { verifyToken, generateToken, generateRefreshToken } = require('./config/auth'); // Ensure correct import path
-const authMiddleware = require('./utils/auth'); // Ensure correct import path
+const { verifyToken } = require('./config/auth');
+const authMiddleware = require('./utils/auth');
 
 require('dotenv').config();
 
@@ -28,7 +28,7 @@ const server = new ApolloServer({
     const token = req.headers.authorization || '';
     if (token) {
       try {
-        const user = verifyToken(token); // Use the correct function
+        const user = verifyToken(token);
         return { user };
       } catch (err) {
         console.error('Token verification failed:', err.message);

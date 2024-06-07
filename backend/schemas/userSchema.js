@@ -19,12 +19,12 @@ const userSchema = gql`
     token: String!
   }
 
-  type Query {
+  extend type Query {
     users: [User!]
     user(id: ID!): User
   }
 
-  type Mutation {
+  extend type Mutation {
     signup(userInput: UserInput!): AuthPayload!
     login(email: String!, password: String!): AuthPayload!
   }
