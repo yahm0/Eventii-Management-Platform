@@ -20,12 +20,12 @@ const eventSchema = gql`
     fee: Float
   }
 
-  type Query {
+  extend type Query {
     events: [Event!]
     event(id: ID!): Event
   }
 
-  type Mutation {
+  extend type Mutation {
     createEvent(eventInput: EventInput!): Event!
     updateEvent(id: ID!, eventInput: EventInput!): Event!
     deleteEvent(id: ID!): Event!
