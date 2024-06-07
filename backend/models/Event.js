@@ -10,4 +10,7 @@ const eventSchema = new mongoose.Schema({
   fee: { type: Number }
 });
 
+// Ensure indexes are created
+eventSchema.index({ title: 1 });
+
 module.exports = mongoose.model('Event', eventSchema);
