@@ -1,5 +1,6 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const path = require('path'); // Add this to serve static files
 const connectDB = require('./config/db');
 const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
@@ -13,6 +14,9 @@ connectDB();
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
+
+// Serve static files from the frontend
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Define authRoutes in a separate file and import it
 const authRoutes = require('./routes/authRoutes'); // Make sure to create this file as mentioned earlier
@@ -45,6 +49,11 @@ async function startServer() {
 
   // Use the auth routes
   app.use('/auth', authRoutes);
+
+  // Handle root URL
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  });
 
   app.listen({ port: process.env.PORT || 4000 }, () =>
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
