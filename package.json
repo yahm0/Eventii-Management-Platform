@@ -9,11 +9,9 @@
     "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
     "dev-backend": "npm run dev --prefix backend",
     "dev-frontend": "npm start --prefix frontend",
-    "install-all": "npm install --prefix backend && npm install --prefix frontend",
-    "seed": "node backend/seeds/seed.js"
+    "install-all": "npm install --prefix backend && npm install --prefix frontend"
   },
-  "devDependencies": {
-    "concurrently": "^6.2.0",
-    "cross-env": "^7.0.3"
+  "dependencies": {
+    "concurrently": "^6.2.0"
   }
 }
