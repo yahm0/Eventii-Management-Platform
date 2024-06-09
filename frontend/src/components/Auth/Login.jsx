@@ -1,49 +1,51 @@
-import React, { useState } from 'react'; // Import the useState hook
-import { useMutation } from '@apollo/client'; // Import the useMutation hook from Apollo Client
-import { LOGIN_USER } from '../../graphql/mutations'; // Import the LOGIN_USER mutation
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../graphql/mutations';
 import { useHistory } from 'react-router-dom';
 
-// Define the Login component to handle user login
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { data, error }] = useMutation(LOGIN_USER);
-  const history = useHistory(); // Use useHistory hook for navigation
+  const history = useHistory();
 
-  // Define the handleSubmit function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log({ email, password }); // Add this line to log form data
+      console.log({ email, password });
       await login({ variables: { email, password } });
-      console.log('Login successful', data); // Add this line to log successful login
-      // Handle successful login (e.g., redirect, set token)
-
+      console.log('Login successful', data);
       history.push('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
     }
   };
 
-  // Return a form for users to enter their email and password
+  const handleResetPassword = () => {
+    history.push('/reset-password');
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <button type="submit">Login</button>
-      {error && <p>Error logging in: {error.message}</p>} {/* Display any errors */}
-    </form>
+    <div className="login-container">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <button type="submit">Login</button>
+        {error && <p>Error logging in: {error.message}</p>}
+      </form>
+      <button onClick={handleResetPassword} className="reset-password-button">Reset Password</button>
+    </div>
   );
 };
 
-export default Login; // Export the Login component
+export default Login;

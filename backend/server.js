@@ -13,7 +13,7 @@ connectDB();
 
 // Use CORS middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:4000', // Replace with your frontend URL
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Replace with your frontend URL
   credentials: true,
 }));
 

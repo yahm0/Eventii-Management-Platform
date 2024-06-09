@@ -8,20 +8,20 @@ import Dashboard from './pages/Dashboard';
 import Profile from './components/Profile/Profile';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
-import Navigation from './components/Navigation'; // Import the Navigation component
+import ResetPassword from './pages/ResetPassword'; // Import the reset password page
+import Navigation from './components/Navigation';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './styles/main.css';
 
 const App = () => {
-  console.log('Rendering App');
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
         <Router>
           <div className="main-container">
-            <Header /> {/* Include the header component */}
-            <Navigation /> {/* Include the navigation component */}
+            <Header />
+            <Navigation />
             <div className="content">
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -29,6 +29,7 @@ const App = () => {
                 <Route path="/profile" component={Profile} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
+                <Route path="/reset-password" component={ResetPassword} />
               </Switch>
             </div>
             <Footer />
