@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 });
 
 userSchema.pre('save', async function (next) {
@@ -18,8 +19,5 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-
-// Ensure indexes are created
-userSchema.index({ email: 1 });
 
 module.exports = mongoose.model('User', userSchema);

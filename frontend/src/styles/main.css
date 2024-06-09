@@ -152,3 +152,24 @@ h1 {
 .reset-password-button:active {
   transform: translateY(2px);
 }
+
+.reset-password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.reset-password-container form {
+  max-width: 400px;
+  width: 100%;
+}
+
+.reset-password-container input {
+  width: 100%;
+}
+
+.reset-password-container button {
+  width: 100%;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../graphql/mutations';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,17 +12,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log({ email, password });
       await login({ variables: { email, password } });
-      console.log('Login successful', data);
       history.push('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
     }
-  };
-
-  const handleResetPassword = () => {
-    history.push('/reset-password');
   };
 
   return (
@@ -43,7 +37,9 @@ const Login = () => {
         <button type="submit">Login</button>
         {error && <p>Error logging in: {error.message}</p>}
       </form>
-      <button onClick={handleResetPassword} className="reset-password-button">Reset Password</button>
+      <Link to="/reset-password-request" className="reset-password-button">
+        Reset Password
+      </Link>
     </div>
   );
 };

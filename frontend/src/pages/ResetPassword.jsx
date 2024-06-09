@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement password reset logic here (e.g., send reset email)
-    console.log('Reset password email sent to:', email);
+    try {
+      const response = await axios.post('/api/auth/generate-reset-token', { email });
+      setMessage(`Reset token generated: ${response.data.resetToken}`);
+    } catch (error) {
+      console.error('Error generating reset token:', error.response.data.message); // Log detailed error
+      setMessage(`Error generating reset token: ${error.response.data.message}`);
+    }
   };
 
   return (
     <div className="reset-password-container">
-      <h2>Reset Password</h2>
+      <h1>Reset Password</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
         />
-        <button type="submit">Send Reset Link</button>
+        <button type="submit">Generate Reset Token</button>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };

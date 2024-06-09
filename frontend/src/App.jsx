@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './components/Profile/Profile';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
-import ResetPassword from './pages/ResetPassword'; // Import the reset password page
+import ResetPasswordRequest from './pages/ResetPasswordRequest';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -29,7 +29,7 @@ const App = () => {
                 <Route path="/profile" component={Profile} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
-                <Route path="/reset-password" component={ResetPassword} />
+                <Route path="/reset-password-request" component={ResetPasswordRequest} />
               </Switch>
             </div>
             <Footer />
