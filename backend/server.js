@@ -9,7 +9,7 @@ const resolvers = require('./resolvers');
 require('dotenv').config();
 
 const app = express();
-connectDB();
+
 
 // Use CORS middleware
 app.use(cors({
