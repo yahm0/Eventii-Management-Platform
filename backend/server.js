@@ -2,7 +2,7 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const cors = require('cors'); // Import cors package
-const connectDB = require('./config/db');
+const db = require('./config/db');
 const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
 
