@@ -16,6 +16,6 @@ require('dotenv').config();
 //   }
 // };
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mernshopping');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://lanbeard105:qMMz33VViTciEU81@eventii.wepmskm.mongodb.net/?retryWrites=true&w=majority&appName=Eventii');
 
 module.exports = mongoose.connection;

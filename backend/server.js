@@ -7,6 +7,7 @@ const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
 
 require('dotenv').config();
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
