@@ -1,17 +1,18 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const { expressMiddleware } = require('@apollo/server/express4'); // Import expressMiddleware
 const path = require('path');
 const cors = require('cors'); // Import cors package
 const db = require('./config/db');
 const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
 const authMiddleware = require('./utils/auth');
+const { verifyToken } = require('./utils/auth'); // Import verifyToken function
 
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
 const app = express();
-
 
 // Use CORS middleware
 app.use(cors({
@@ -44,40 +45,9 @@ const server = new ApolloServer({
   },
 });
 
-// // Function to start the server and apply middleware
-// async function startServer() {
-//   await server.start();
-//   server.applyMiddleware({ app });
-
-//   // Handle root URL
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-//   });
-
-//   if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.join(__dirname, '../client/dist')));
-
-//     app.get('*', (req, res) => {
-//       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-//     });
-//   }
-
-//   db.once('open', () => {
-//     app.listen(PORT, () => {
-//       console.log(`API server running on port ${PORT}!`);
-//       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-//     });
-//   });
-  
-// }
-
-
-// Start the server
+// Start the server and apply middleware
 const startApolloServer = async () => {
   await server.start();
-
-  app.use(express.urlencoded({ extended: false }));
-  app.use(express.json());
 
   // Serve up static assets
   app.use('/images', express.static(path.join(__dirname, '../client/images')));
