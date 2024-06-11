@@ -2,6 +2,6 @@ const Event = require('./Event');
 const User = require('./User');
 
 module.exports = {
-  events: Event,
-  users: User,
+  Event, // Corrected to export Event and User correctly
+  User,
 };
