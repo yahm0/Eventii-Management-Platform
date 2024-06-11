@@ -1,30 +1,11 @@
 const { gql } = require('apollo-server-express');
+const eventSchema = require('./eventSchema');
+const userSchema = require('./userSchema');
 
-const typeDefs = gql`
-  type User {
-    id: ID!
-    name: String!
-    email: String!
-  }
-
-  type Event {
-    id: ID!
-    title: String!
-    description: String!
-    date: String!
-    location: String!
-    fee: Float
-  }
-
-  type Query {
-    users: [User]
-    events: [Event]
-  }
-
-  type Mutation {
-    addUser(name: String!, email: String!, password: String!): User
-    addEvent(title: String!, description: String!, date: String!, location: String!, fee: Float): Event
-  }
+const baseSchema = gql`
+  scalar Date
+  type Query
+  type Mutation
 `;
 
-module.exports = typeDefs;
+module.exports = [baseSchema, eventSchema, userSchema];
