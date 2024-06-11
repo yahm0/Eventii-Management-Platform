@@ -1,13 +1,11 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const { expressMiddleware } = require('@apollo/server/express4'); // Import expressMiddleware
 const path = require('path');
 const cors = require('cors'); // Import cors package
 const db = require('./config/db');
 const typeDefs = require('./schemas');
 const resolvers = require('./resolvers');
-const authMiddleware = require('./utils/auth');
-const { verifyToken } = require('./utils/auth'); // Import verifyToken function
+const { authMiddleware, verifyToken } = require('./utils/auth'); // Import both authMiddleware and verifyToken
 
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
@@ -49,11 +47,9 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
   await server.start();
 
-  // Serve up static assets
-  app.use('/images', express.static(path.join(__dirname, '../client/images')));
-
-  app.use('/graphql', expressMiddleware(server, {
-    context: authMiddleware
+  app.use('/graphql', server.getMiddleware({
+    path: '/graphql',
+    context: authMiddleware,
   }));
 
   if (process.env.NODE_ENV === 'production') {
