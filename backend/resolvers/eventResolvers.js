@@ -1,96 +1,62 @@
-const { events, users } = require('../models');
-
+const Event = require('../models/Event');
+const User = require('../models/User');
+const { AuthenticationError } = require('apollo-server-express');
+const { verifyToken } = require('../utils/auth');
 
 const eventResolvers = {
+  Query: {
+    events: async () => await Event.find().populate('organizer attendees'),
+    event: async (_, { id }) => await Event.findById(id).populate('organizer attendees'),
+  },
   Mutation: {
-    createEvent: async (_, { eventInput }) => {
-      try {
-        console.log('Received eventInput:', eventInput); // Log received input
-
-        // Ensure required fields are provided
-        if (!eventInput.title || !eventInput.description || !eventInput.date || !eventInput.location) {
-          throw new Error('Missing required fields');
-        }
-
-        const newEvent = new events(eventInput);
-        const savedEvent = await newEvent.save();
-
-        console.log('Saved event:', savedEvent); // Log saved event
-
-        return {
-          ...savedEvent.toObject(),
-          id: savedEvent._id,
-          organizer: { name: 'Organizer Name' } // Placeholder for organizer, replace with actual data
-        };
-      } catch (error) {
-        console.error('Error in createEvent resolver:', error); // Log error
-        throw new Error('Failed to create event');
+    createEvent: async (_, { eventInput }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Authentication required');
       }
+      const event = new Event({ ...eventInput, organizer: context.user.id });
+      await event.save();
+      await User.findByIdAndUpdate(context.user.id, { $push: { events: event.id } });
+      return event.populate('organizer attendees');
     },
-    updateEvent: async (_, { id, eventInput }) => {
-      const updatedEvent = await events.findByIdAndUpdate(id, eventInput, { new: true }).populate('organizer');
-      return {
-        ...updatedEvent.toObject(),
-        id: updatedEvent._id,
-        organizer: updatedEvent.organizer || { name: 'Unknown' }
-      };
-    },
-    deleteEvent: async (_, { id }) => {
-      const deletedEvent = await events.findByIdAndDelete(id).populate('organizer');
-      return {
-        ...deletedEvent.toObject(),
-        id: deletedEvent._id,
-        organizer: deletedEvent.organizer || { name: 'Unknown' }
-      };
-    },
-    registerForEvent: async (_, { eventId, token }) => {
-      const event = await events.findById(eventId).populate('organizer');
+    updateEvent: async (_, { id, eventInput }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Authentication required');
+      }
+      const event = await Event.findByIdAndUpdate(id, eventInput, { new: true }).populate('organizer attendees');
       if (!event) {
         throw new Error('Event not found');
       }
-
-      const user = await users.findOne({ token });
+      return event;
+    },
+    deleteEvent: async (_, { id }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Authentication required');
+      }
+      const event = await Event.findByIdAndDelete(id).populate('organizer attendees');
+      if (!event) {
+        throw new Error('Event not found');
+      }
+      return event;
+    },
+    registerForEvent: async (_, { eventId, token }) => {
+      const decoded = verifyToken(token);
+      if (!decoded) {
+        throw new AuthenticationError('Invalid token');
+      }
+      const user = await User.findById(decoded.id);
       if (!user) {
-        throw new Error('User not found or invalid token');
+        throw new Error('User not found');
       }
-
-      event.attendees.push(user);
-      await event.save();
-
-      return {
-        ...event.toObject(),
-        id: event._id,
-        organizer: event.organizer || { name: 'Unknown' }
-      };
-    },
-  },
-  Query: {
-    events: async () => {
-      try {
-        const eventsList = await events.find().populate('organizer');
-        return eventsList.map(event => ({
-          ...event.toObject(),
-          id: event._id,
-          organizer: event.organizer || { name: 'Unknown' }
-        }));
-      } catch (err) {
-        throw new Error('Failed to fetch events');
+      const event = await Event.findByIdAndUpdate(
+        eventId,
+        { $addToSet: { attendees: user.id } },
+        { new: true }
+      ).populate('organizer attendees');
+      if (!event) {
+        throw new Error('Event not found');
       }
-    },
-    event: async (_, { id }) => {
-      try {
-        const event = await events.findById(id).populate('organizer');
-        if (!event) {
-          throw new Error('Event not found');
-        }
-        return {
-          ...event.toObject(),
-          id: event._id,
-          organizer: event.organizer || { name: 'Unknown' }
-        };
-      } catch (err) {
-        throw new Error('Failed to fetch event');
-      }
+      await User.findByIdAndUpdate(user.id, { $addToSet: { events: event.id } });
+      return event;
     },
   },
 };
