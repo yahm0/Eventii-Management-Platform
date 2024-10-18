@@ -1,0 +1,72 @@
+/* Notification styles */
+.notification-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.notification {
+    background-color: #A8E6CF;
+    /* Light mint green */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.notification.unread {
+    background-color: #FF6F00;
+    /* Bright orange accent */
+}
+
+.notification button {
+    background-color: #004D40;
+    /* Dark teal */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Review styles */
+.review-list {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.review {
+    background-color: #FADADD;
+    /* Soft pastel pink */
+    border: 1px solid #004D40;
+    /* Dark teal */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.review-form {
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.review-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.review-form button {
+    background-color: #004D40;
+    /* Dark teal */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+}

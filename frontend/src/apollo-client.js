@@ -1,23 +1,11 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-
-const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_URL || 'http://localhost:3001/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  uri: process.env.REACT_APP_GRAPHQL_URI, // Ensure this is set in your environment variables
   cache: new InMemoryCache(),
+  headers: {
+    authorization: `Bearer ${localStorage.getItem('token')}`, // Example of setting headers
+  },
 });
 
 export default client;

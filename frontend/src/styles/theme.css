@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Impact&family=Bebas+Neue&display=swap');
+
+body {
+    font-family: '90sFont', sans-serif;
+    /* Replace with actual font */
+    background-color: #FADADD;
+    color: #004D40;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Impact', 'Bebas Neue', sans-serif;
+    color: #004D40;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2.5em;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+p,
+a,
+button {
+    font-family: '90sFont', sans-serif;
+    /* Replace with actual font */
+}
+
+a {
+    color: #FF6F00;
+    /* Bright orange accent */
+}
+
+.button {
+    background-color: #A8E6CF;
+    /* Light mint green */
+    color: #004D40;
+    /* Dark teal */
+    border: 2px solid #FF6F00;
+    /* Bright orange accent */
+}
+
+.gorilla-theme {
+    background-image: url('/path/to/gorilla-pattern.svg');
+    /* Add gorilla-themed pattern */
+    background-size: cover;
+}
+
+.pattern {
+    background-image: url('/path/to/90s-pattern.svg');
+    /* Add 90s-inspired pattern */
+    background-size: contain;
+}

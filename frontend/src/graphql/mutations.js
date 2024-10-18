@@ -37,7 +37,6 @@ export const CREATE_EVENT = gql`
       description
       date
       location
-      fee
       organizer {
         name
       }
@@ -55,6 +54,30 @@ export const REGISTER_FOR_EVENT = gql`
       date
       location
       fee
+    }
+  }
+`;
+
+export const UPDATE_USER_INTERESTED_CATEGORIES = gql`
+  mutation UpdateUserInterestedCategories($userId: ID!, $categories: [String!]!) {
+    updateUserInterestedCategories(userId: $userId, categories: $categories) {
+      id
+      interestedCategories
+    }
+  }
+`;
+
+export const UPDATE_EVENT = gql`
+  mutation UpdateEvent($id: ID!, $eventInput: EventInput!) {
+    updateEvent(id: $id, eventInput: $eventInput) {
+      id
+      title
+      description
+      date
+      location
+      organizer {
+        name
+      }
     }
   }
 `;

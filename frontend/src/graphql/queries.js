@@ -30,3 +30,18 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_EVENT = gql`
+  query GetEvent($id: ID!) {
+    event(id: $id) {
+      id
+      title
+      description
+      date
+      location
+      organizer {
+        name
+      }
+    }
+  }
+`;

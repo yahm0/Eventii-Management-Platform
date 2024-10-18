@@ -1,42 +1,38 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/client';
-import client from './apollo-client';
-import { AuthProvider } from './utils/Auth';
 import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
+import Auth from './pages/Auth';
+import AdminDashboard from './pages/AdminDashboard';
+import SearchEvents from './pages/SearchEvents';
+import EditEvent from './pages/EditEvent';
+import UserProfile from './pages/UserProfile';
+import CreateEvent from './pages/CreateEvent';
+import EventDetails from './pages/EventDetails';
 import Dashboard from './pages/Dashboard';
-import Profile from './components/Profile/Profile';
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
-import Navigation from './components/Navigation'; // Import the Navigation component
-import Header from './components/Header';
-import Footer from './components/Footer';
-import './styles/main.css';
 
-const App = () => {
-  console.log('Rendering App');
-  return (
-    <ApolloProvider client={client}>
-      <AuthProvider>
+function App() {
+    return (
         <Router>
-          <div className="main-container">
-            <Header /> {/* Include the header component */}
-            <Navigation /> {/* Include the navigation component */}
-            <div className="content">
-              <Switch>
-                <Route exact path="/" component={Home} />
+            <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/about" component={About} />
+                <Route path="/contact" component={Contact} />
+                <Route path="/privacy-policy" component={PrivacyPolicy} />
+                <Route path="/terms" component={Terms} />
+                <Route path="/auth" component={Auth} />
+                <Route path="/admin-dashboard" component={AdminDashboard} />
+                <Route path="/search-events" component={SearchEvents} />
+                <Route path="/edit-event/:id" component={EditEvent} />
+                <Route path="/user-profile" component={UserProfile} />
+                <Route path="/create-event" component={CreateEvent} />
+                <Route path="/event-details/:id" component={EventDetails} />
                 <Route path="/dashboard" component={Dashboard} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-              </Switch>
-            </div>
-            <Footer />
-          </div>
+            </Switch>
         </Router>
-      </AuthProvider>
-    </ApolloProvider>
-  );
-};
+    );
+}
 
 export default App;

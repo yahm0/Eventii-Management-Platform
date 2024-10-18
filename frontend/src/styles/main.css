@@ -1,10 +1,12 @@
 /* Main.css */
 body {
-  font-family: Arial, sans-serif;
+  font-family: '90sFont', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #FADADD;
+  /* Soft pastel pink */
+  color: #004D40;
+  /* Dark teal */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -22,7 +24,8 @@ form {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-input, textarea {
+input,
+textarea {
   margin: 10px 0;
   padding: 12px;
   border: 1px solid #ccc;
@@ -31,16 +34,19 @@ input, textarea {
   transition: border-color 0.3s;
 }
 
-input:focus, textarea:focus {
-  border-color: #007BFF;
+input:focus,
+textarea:focus {
+  border-color: #FF6F00;
+  /* Bright orange accent */
   outline: none;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+  box-shadow: 0 0 8px rgba(255, 111, 0, 0.2);
 }
 
 button {
   margin: 15px 0;
   padding: 12px 20px;
-  background-color: #007BFF;
+  background-color: #004D40;
+  /* Dark teal */
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -50,7 +56,8 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #FF6F00;
+  /* Bright orange accent */
 }
 
 button:active {
@@ -63,13 +70,16 @@ button:active {
     padding: 15px;
   }
 
-  input, textarea, button {
+  input,
+  textarea,
+  button {
     font-size: 14px;
   }
 }
 
 nav {
-  background-color: #9caf88;
+  background-color: #A8E6CF;
+  /* Light mint green */
   padding: 10px;
 }
 
@@ -95,6 +105,8 @@ nav ul li a:hover {
 
 h1 {
   text-align: center;
+  color: #004D40;
+  /* Dark teal */
 }
 
 .main-container {
@@ -105,18 +117,19 @@ h1 {
 
 .content {
   flex: 1;
-  padding-bottom: 50px; /* Height of the footer to ensure content isn't hidden behind the footer */
+  padding-bottom: 50px;
 }
 
 .footer {
-  background-color: #333;
+  background-color: #004D40;
+  /* Dark teal */
   color: white;
   text-align: center;
   padding: 10px 0;
   width: 100%;
-  position: fixed; /* Fixed position to stick at the bottom */
+  position: fixed;
   bottom: 0;
-  left: 0; /* Ensure it spans the full width */
+  left: 0;
 }
 
 .footer a {
