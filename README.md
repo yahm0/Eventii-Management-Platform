@@ -1,4 +1,3 @@
-
 # Eventii-Management-Platform
 
 A full-stack event management application using the MERN stack.
@@ -11,6 +10,7 @@ A full-stack event management application using the MERN stack.
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+- [Contact](#contact)
 
 ## Image
 
@@ -25,6 +25,7 @@ A full-stack event management application using the MERN stack.
 - User profiles with event history.
 - Integration with Stripe for event fees or donations.
 - PWA functionality (offline access, installable).
+- **Real-time notifications**.
 
 ## Technologies Used
 
@@ -38,6 +39,7 @@ A full-stack event management application using the MERN stack.
 - GraphQL
 - JWT
 - Stripe
+- **Socket.io**
 
 ### Frontend
 
@@ -68,7 +70,7 @@ A full-stack event management application using the MERN stack.
 
 The application is deployed using Render for both frontend and backend.
 
-[Deployed Link](https://eventii-management-platform-l6xt.onrender.com/) 
+[Deployed Link](https://eventii.com) 
 
 [Repository Link](https://github.com/yahm0/Eventii-Management-Platform) 
 
@@ -87,3 +89,7 @@ Feel free to fork this repository and submit pull requests.
 ## License
 
 This project is licensed under the MIT License.
+
+## Contact
+
+For any inquiries or issues, please contact [your-email@example.com].
