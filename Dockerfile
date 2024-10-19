@@ -8,22 +8,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Install backend dependencies
-WORKDIR /app/backend
-COPY backend/package*.json ./
-RUN npm install
-
-# Install frontend dependencies
-WORKDIR /app/frontend
-COPY frontend/package*.json ./
-RUN npm install
-
 # Copy the rest of the application
-WORKDIR /app
 COPY . .
 
 # Build the frontend
-RUN npm run build-frontend
+RUN npm run build
 
 # Expose the port the app runs on
 EXPOSE 3000

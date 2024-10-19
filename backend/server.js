@@ -93,3 +93,7 @@ const startApolloServer = async () => {
 };
 
 startApolloServer();
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
